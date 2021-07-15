@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/JSP/Page"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<table border="1" cellpadding="4" cellspacing="0">
+    <h1>User Table</h1>
+    <br>
+    <tr>
+        <th>username</th>
+        <th>password</th>
+        <th>email</th>
+        <th>roles</th>
+
+        <th colspan="2">Operations</th>
+    </tr>
+
+
+    <tr th:each="allUser, state :${allUser}">
+
+
+        <td th:text="${allUser.username}"> username</td>
+        <td th:text="${allUser.password}"> password</td>
+        <td th:text="${allUser.email}"> email</td>
+        <td th:text="${allUser.roles}"> roles</td>
+        <td>
+
+         <a th:href="@{/update/{id}(id=${allUser.id})}">
+        <input type="button" value="Update" /></a></td>
+
+
+        <td>
+        <form th:method="DELETE" th:action="@{/deleteUser/{id}(id=${allUser.id})}">
+        <input type="submit" value="Delete"/></form></td>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<input type="button" value="CREATE NEW USER"
+       onclick="window.location.href = 'addNewUser'"/>
+
+<input type="button" value="TABLE USERS"
+       onclick="window.location.href = 'user'"/>
+
+<input type="button" value="LOGOUT"
+       onclick="window.location.href = 'logout'"/>
+
+</body>
+</html>

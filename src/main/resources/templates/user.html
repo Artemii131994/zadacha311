@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<table border="1">
+    <caption>Users Table</caption>
+    <tr>
+
+        <th> username</th>
+        <th> password</th>
+        <th> email</th>
+        <th> role</th>
+    </tr>
+
+    <tr th:each="user:${user_user}">
+
+
+        <td th:text="${user.getUsername()}"> username</td>
+        <td th:text="${user.getPassword()}"> password</td>
+        <td th:text="${user.getEmail()}"> email</td>
+        <td th:text="${user.getRoles()}"> roles</td>
+
+    </tr>
+
+
+</table>
+<tr>
+    <td colspan="2">
+        <input type="button" value="LOGOUT"
+               onclick="window.location.href = 'logout'"/>
+    </td>
+</tr>
+
+</body>
+</html>
