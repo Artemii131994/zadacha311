@@ -16,12 +16,12 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("")
-public class adminController {
+public class AdminController {
 
     private UserServiceDao userServiceDao;
 
     @Autowired
-    public adminController(UserServiceDao userServiceDao) {
+    public AdminController(UserServiceDao userServiceDao) {
         this.userServiceDao = userServiceDao;
 
     }

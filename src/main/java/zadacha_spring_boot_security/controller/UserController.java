@@ -13,12 +13,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("")
-public class userController {
+public class UserController {
 
     private UserServiceDao userServiceDao;
 
     @Autowired
-    public userController(UserServiceDao userServiceDao) {
+    public UserController(UserServiceDao userServiceDao) {
         this.userServiceDao = userServiceDao;
     }
 
