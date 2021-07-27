@@ -3,6 +3,7 @@ package zadacha_spring_boot_security.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,9 @@ public class Role implements GrantedAuthority {
     }
 
     public Set<User> getUsers() {
+        if (users == null) {
+            users = new HashSet();
+        }
         return users;
     }
 

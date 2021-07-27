@@ -3,41 +3,37 @@ package zadacha_spring_boot_security.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
-import zadacha_spring_boot_security.service.UserServiceDao;
+import zadacha_spring_boot_security.security.handler.SuccessUserHandler;
+import zadacha_spring_boot_security.service.UserDetailsImpl;
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserServiceDao userServiceDao; // сервис, с помощью которого тащим пользователя
+    private final UserDetailsImpl userDetailsImpl; // сервис, с помощью которого тащим пользователя
     private final SuccessUserHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по ролям
 
     @Autowired
-    public WebSecurityConfig(UserServiceDao userServiceDao, SuccessUserHandler successUserHandler) {
-        this.userServiceDao = userServiceDao;
+    public WebSecurityConfig(UserDetailsImpl userDetailsImpl, SuccessUserHandler successUserHandler) {
+        this.userDetailsImpl = userDetailsImpl;
         this.successUserHandler = successUserHandler;
 
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userServiceDao).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsImpl).passwordEncoder(passwordEncoder());
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/login").anonymous()
                 .antMatchers("/","/admin").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
@@ -47,20 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder(10);
 
     }
-    @Bean
-    protected DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userServiceDao);
-        return daoAuthenticationProvider;
-    }
-
-    @Bean
-    HiddenHttpMethodFilter hiddenHttpMethodFilter() {
-        return new HiddenHttpMethodFilter();
-    }
-
 }

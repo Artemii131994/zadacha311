@@ -48,5 +48,8 @@ public class UserDAOImpl implements UserDAO {
                 .getSingleResult();
     }
 
-
+    @Override
+    public void add(User user) {
+        entityManager.persist(user);
+    }
 }

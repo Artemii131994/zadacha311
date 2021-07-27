@@ -1,4 +1,4 @@
-package zadacha_spring_boot_security.security;
+package zadacha_spring_boot_security.security.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

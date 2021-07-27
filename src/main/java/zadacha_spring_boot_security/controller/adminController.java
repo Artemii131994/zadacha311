@@ -48,7 +48,7 @@ public class adminController {
             roleSet.add(userServiceDao.getByName(roles));
         }
         user.setRoles(roleSet);
-        userServiceDao.update(user);
+        userServiceDao.add(user);
 
         return "redirect:/admin";
     }
@@ -60,7 +60,7 @@ public class adminController {
         return "updateUser";
     }
 
-    @PutMapping("/updateSave")
+    @PostMapping("/updateSave")
     public String edit(@ModelAttribute("user") User user,
                        @RequestParam("role") String[] role) {
         Set<Role> roleSet = new HashSet<>();
@@ -72,7 +72,7 @@ public class adminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/deleteUser/{id}")
+    @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
         userServiceDao.deleteUser(id);
         return "redirect:/admin";

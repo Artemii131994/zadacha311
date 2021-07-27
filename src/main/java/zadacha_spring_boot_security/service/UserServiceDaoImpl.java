@@ -3,6 +3,8 @@ package zadacha_spring_boot_security.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zadacha_spring_boot_security.dao.RoleDAO;
@@ -16,13 +18,15 @@ import java.util.List;
 @Service
 public class UserServiceDaoImpl implements UserServiceDao{
 
+    private PasswordEncoder passwordEncoder;
     private UserDAO userDAO;
     private RoleDAO roleDAO;
 
     @Autowired
-    public UserServiceDaoImpl(UserDAO userDAO, RoleDAO roleDAO) {
+    public UserServiceDaoImpl(UserDAO userDAO, RoleDAO roleDAO, PasswordEncoder passwordEncoder) {
         this.userDAO = userDAO;
         this.roleDAO = roleDAO;
+        this.passwordEncoder=passwordEncoder;
     }
 
     @Override
@@ -41,6 +45,7 @@ public class UserServiceDaoImpl implements UserServiceDao{
     @Override
     @Transactional
     public void update(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.update(user);
     }
 
@@ -59,12 +64,9 @@ public class UserServiceDaoImpl implements UserServiceDao{
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userDAO.ByUserName(s);
-        if (user == null){
-            throw new UsernameNotFoundException("User not found");
-        }
-        return user;
+    public void add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDAO.add(user);
     }
 
 }

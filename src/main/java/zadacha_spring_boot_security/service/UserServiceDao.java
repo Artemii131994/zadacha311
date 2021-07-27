@@ -9,7 +9,7 @@ import java.util.List;
 
 
 
-public interface UserServiceDao extends UserDetailsService {
+public interface UserServiceDao {
 
     public List<User> getAllUser();
 
@@ -21,5 +21,5 @@ public interface UserServiceDao extends UserDetailsService {
 
     public Role getByName(String name);
 
-
+    public void add(User user);
 }
