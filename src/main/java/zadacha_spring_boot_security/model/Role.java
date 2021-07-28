@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -24,7 +24,7 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-     public Role(Long id) {
+    public Role(Long id) {
         this.id = id;
     }
 

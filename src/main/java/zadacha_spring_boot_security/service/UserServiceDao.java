@@ -6,7 +6,7 @@ import zadacha_spring_boot_security.model.User;
 
 
 import java.util.List;
-
+import java.util.Set;
 
 
 public interface UserServiceDao {
@@ -22,4 +22,6 @@ public interface UserServiceDao {
     public Role getByName(String name);
 
     public void add(User user);
+
+    public Set<Role> byRole(User user, String[] role);
 }

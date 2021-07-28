@@ -30,13 +30,14 @@
         <td th:text="${allUser.roles}"> roles</td>
         <td>
 
-         <a th:href="@{/update/{id}(id=${allUser.id})}">
-        <input type="button" value="Update" /></a></td>
+            <a th:href="@{/update/{id}(id=${allUser.id})}">
+                <input type="button" value="Update"/></a></td>
 
 
         <td>
-        <form th:method="GET" th:action="@{/deleteUser/{id}(id=${allUser.id})}">
-        <input type="submit" value="Delete"/></form></td>
+            <form th:method="DELETE" th:action="@{/deleteUser/{id}(id=${allUser.id})}">
+                <input type="submit" value="Delete"/></form>
+        </td>
         </td>
     </tr>
 </table>

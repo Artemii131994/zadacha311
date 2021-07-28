@@ -19,11 +19,12 @@ public class UserDetailsImpl implements UserDetailsService {
         this.userDAO = userDAO;
 
     }
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userDAO.ByUserName(s);
-        if (user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return user;

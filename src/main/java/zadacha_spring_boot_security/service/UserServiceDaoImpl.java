@@ -14,9 +14,10 @@ import zadacha_spring_boot_security.model.User;
 
 
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class UserServiceDaoImpl implements UserServiceDao{
+public class UserServiceDaoImpl implements UserServiceDao {
 
     private PasswordEncoder passwordEncoder;
     private UserDAO userDAO;
@@ -26,7 +27,7 @@ public class UserServiceDaoImpl implements UserServiceDao{
     public UserServiceDaoImpl(UserDAO userDAO, RoleDAO roleDAO, PasswordEncoder passwordEncoder) {
         this.userDAO = userDAO;
         this.roleDAO = roleDAO;
-        this.passwordEncoder=passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -69,4 +70,9 @@ public class UserServiceDaoImpl implements UserServiceDao{
         userDAO.add(user);
     }
 
+    @Override
+    @Transactional
+    public Set<Role> byRole(User user, String[] role) {
+        return roleDAO.byRole(user, role);
+    }
 }

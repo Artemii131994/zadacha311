@@ -10,7 +10,7 @@
     <h1>Update User</h1>
     <br/>
     <form action="#" th:action="@{/updateSave}" th:object="${user}"
-          th:method="POST">
+          th:method="PUT">
 
         <input type="hidden" th:field="*{id}" readonly="readonly"/>
 
@@ -40,9 +40,9 @@
             </tr>
 
 
-                <td colspan="2">
-                    <button type="submit">Save</button>
-                </td>
+            <td colspan="2">
+                <button type="submit">Save</button>
+            </td>
             </tr>
 
             <tr>

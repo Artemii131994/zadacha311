@@ -1,9 +1,5 @@
 package zadacha_spring_boot_security.dao;
 
-
-
-
-
 import zadacha_spring_boot_security.model.User;
 
 import java.util.List;
