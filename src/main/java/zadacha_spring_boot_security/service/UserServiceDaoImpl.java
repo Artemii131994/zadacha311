@@ -75,4 +75,10 @@ public class UserServiceDaoImpl implements UserServiceDao {
     public Set<Role> byRole(User user, String[] role) {
         return roleDAO.byRole(user, role);
     }
+
+    @Override
+    @Transactional
+    public User ByUserName(String s){
+        return userDAO.ByUserName(s);
+    }
 }
